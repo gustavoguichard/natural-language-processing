@@ -3,9 +3,9 @@
 class Script
   module Utils
     def output(task)
-      warn "Preparing #{task}..."
+      puts "Preparing #{task}..."
       result = yield
-      warn "#{task} finished!"
+      puts "#{task} finished!"
       result
     end
 

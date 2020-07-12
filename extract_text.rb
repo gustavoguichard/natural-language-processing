@@ -29,7 +29,7 @@ class ExtractText
     documents = urls.map do |url|
       output url do
         document = document_from_url url
-        warn "Got: #{document.title}"
+        puts "Got: #{document.title}"
         document
       end
     end

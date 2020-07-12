@@ -12,7 +12,7 @@ class DataFetcher
   def initialize
     output 'RBDB API' do
       result = parse(response)
-      warn genres.join(', ')
+      puts genres.join(', ')
     end
   end
 
