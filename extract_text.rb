@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-require './utils'
 require 'open-uri'
 require 'readability'
 require 'phrasie'
+require './utils'
 
 WIKI_BASE = 'http://en.wikipedia.org/wiki'
 IGNORED = ['^', '', 'p', '"', 'pp', 'link', 'citation', 'ISBN', '[edit', 'Retrieved', 'eds .).', '.).', 'c', '5'].freeze

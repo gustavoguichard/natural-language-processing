@@ -2,10 +2,13 @@
 
 require 'json'
 require 'rest-client'
+require './utils'
 
 API_BASE = 'https://rbdb.io/v3'
 
 class DataFetcher
+  include Script::Utils
+
   def initialize
     output 'RBDB API' do
       result = parse(response)
@@ -27,12 +30,6 @@ class DataFetcher
 
   def parse(response)
     @json ||= JSON.parse response.body
-  end
-
-  def output(task)
-    warn "Preparing #{task}..."
-    yield
-    warn "#{task} finished!"
   end
 
   private

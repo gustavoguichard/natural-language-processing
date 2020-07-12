@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require 'byebug'
 require 'json'
 require 'json/add/core'
 require './data_fetcher'
@@ -9,6 +8,7 @@ require './search'
 
 class Script
   Article = Struct.new(:title, :text, :terms)
+
   def initialize
     search(rock_data)
   end
