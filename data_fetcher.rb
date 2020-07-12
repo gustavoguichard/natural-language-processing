@@ -36,7 +36,7 @@ class DataFetcher
 
   def genres_from_json
     names = json_collection.each_with_object([]) do |style, result|
-      result.push style.split('/')
+      result << style.split('/')
     end
     names.flatten.reject { |genre| genre == 'Unknown' }
   end
