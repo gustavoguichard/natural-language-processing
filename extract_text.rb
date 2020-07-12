@@ -26,21 +26,24 @@ class ExtractText
   end
 
   def fetch(urls)
-    urls.map do |url|
+    documents = urls.map do |url|
       output url do
         document = document_from_url url
-        next unless document.respond_to? :title
-
-        title = document.title.sub(/ - Wikipedia(.+)?$/, '')
-        warn "Got: #{title}"
-        text = text_from_document document
-        terms = extract_terms text
-        terms.each do |term|
-          term.unshift normalize(term.first)
-        end
-
-        Article.new(title, text, terms)
+        warn "Got: #{document.title}"
+        document
       end
+    end
+    data_from_documents documents
+  end
+
+  def data_from_documents(documents)
+    documents.map do |document|
+      next unless document.respond_to? :title
+
+      title = document.title.sub(/ - Wikipedia(.+)?$/, '')
+      text = text_from_document document
+      terms = extract_terms text
+      Article.new(title, text, terms)
     end
   end
 
@@ -56,7 +59,10 @@ class ExtractText
   end
 
   def extract_terms(text)
-    terms = Phrasie::Extractor.new.phrases(text)
-    terms.reject { |term| IGNORED.include? term.first }
+    Phrasie::Extractor.new.phrases(text).tap do |terms|
+      terms
+        .reject { |term| IGNORED.include? term.first }
+        .each { |term| term.unshift normalize(term.first) }
+    end
   end
 end
